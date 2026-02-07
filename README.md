@@ -1,42 +1,77 @@
-# CodeReview BOT
 
-> A code review robot powered by ChatGPT
 
-Translation Versions: [ENGLISH](./README.md) | [简体中文](./README.zh-CN.md) | [繁體中文](./README.zh-TW.md) | [한국어](./README.ko.md) | [日本語](./README.ja.md)
+# 🤖 AI CodeReview Bot
 
-## Bot Usage
+> An intelligent **AI-powered code review robot** built using modern LLM technology to automatically analyze GitHub Pull Requests and provide contextual feedback.
 
-❗️⚠️ `Due to cost considerations, BOT is only used for testing purposes and is currently deployed on AWS Lambda with ratelimit restrictions. Therefore, unstable situations are completely normal. It is recommended to deploy an app by yourself.`
+**Made by:** **Hemant Kumar**
 
-### Install
+---
 
-Install: [apps/cr-gpt](https://github.com/apps/cr-gpt);
 
-### Configuration
 
-1. Go to the repo homepage which you want integrate this bot
-2. click `settings`
-3. click `actions` under `secrets and variables`
-4. Change to `Variables` tab, create a new variable `OPENAI_API_KEY` with the value of your open api key (For Github Action integration, set it in secrets)
-   <img width="1465" alt="image" src="https://user-images.githubusercontent.com/13167934/218533628-3974b70f-c423-44b0-b096-d1ec2ace85ea.png">
+---
 
-### Start using
+# 🚀 Bot Usage
 
-1. The robot will automatically do the code review when you create a new Pull request, the review information will show in the pr timeline / file changes part.
-2. After `git push` update the pull request, cr bot will re-review the changed files
+❗️⚠️
+Due to cost considerations, this bot is mainly intended for **testing and learning purposes**.
+The demo deployment may have **rate limits or instability**, so **self-hosting is recommended** for production usage.
 
-example:
+---
 
-[ChatGPT-CodeReview/pull/21](https://github.com/anc95/ChatGPT-CodeReview/pull/21)
+# 📦 Installation
 
-<img width="1052" alt="image" src="https://user-images.githubusercontent.com/13167934/218999459-812206e1-d8d2-4900-8ce8-19b5b6e1f5cb.png">
+Install the GitHub App:
 
-## Using Github Actions
+**[https://github.com/apps/cr-gpt](https://github.com/apps/cr-gpt)**
 
-[actions/chatgpt-codereviewer](https://github.com/marketplace/actions/chatgpt-codereviewer)
+---
 
-1. add the `OPENAI_API_KEY` to your github actions secrets
-2. create `.github/workflows/cr.yml` add bellow content
+# ⚙️ Configuration
+
+1. Open the **target GitHub repository**
+2. Go to **Settings**
+3. Click **Secrets and Variables → Actions**
+4. Create a new variable:
+
+```
+OPENAI_API_KEY = your_openai_api_key
+```
+
+For **GitHub Actions integration**, store it inside **Secrets**.
+
+---
+
+# ▶️ Start Using
+
+1. Create a **new Pull Request** →
+   The bot will **automatically review the code** and post comments in:
+
+   * PR timeline
+   * File changes section
+
+2. Push new commits →
+   The bot will **re-review updated files automatically**.
+
+---
+
+# 🤖 Using GitHub Actions
+
+GitHub Marketplace Action:
+
+**[https://github.com/marketplace/actions/chatgpt-codereviewer](https://github.com/marketplace/actions/chatgpt-codereviewer)**
+
+### Steps
+
+1. Add `OPENAI_API_KEY` to **GitHub Secrets**
+2. Create workflow file:
+
+```
+.github/workflows/cr.yml
+```
+
+### Example Workflow
 
 ```yml
 name: Code Review
@@ -44,95 +79,104 @@ name: Code Review
 permissions:
   contents: read
   pull-requests: write
-  models: true # if you choose use github models, set this to be true
+  models: true
 
 on:
   pull_request:
     types: [opened, reopened, synchronize]
 
 jobs:
-  test:
-    # if: ${{ contains(github.event.*.labels.*.name, 'gpt review') }} # Optional; to run only when a label is attached
+  review:
     runs-on: ubuntu-latest
     steps:
       - uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # if use github models https://github.com/marketplace/models
-          USE_GITHUB_MODELS: true
-          MODEL: openai/gpt-4o
-
-          # else if use azure deployment
-          AZURE_API_VERSION: xx
-          AZURE_DEPLOYMENT: xx
-
-          # else use standard llm model
+          # OpenAI usage
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_API_ENDPOINT: https://api.openai.com/v1
-          MODEL: gpt-3.5-turbo # https://platform.openai.com/docs/models
+          MODEL: gpt-3.5-turbo
 
-          # common
-          LANGUAGE: Chinese
-          PROMPT: # example: Please check if there are any confusions or irregularities in the following code diff:
-          top_p: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-top_p
-          temperature: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperature
+          # Common settings
+          LANGUAGE: English
+          temperature: 1
+          top_p: 1
           max_tokens: 10000
-          MAX_PATCH_LENGTH: 10000 # if the patch/diff length is large than MAX_PATCH_LENGTH, will be ignored and won't review. By default, with no MAX_PATCH_LENGTH set, there is also no limit for the patch/diff length.
-          IGNORE_PATTERNS: /node_modules/**/*,*.md # glob pattern or regex pattern to ignore files, separated by comma
-          INCLUDE_PATTERNS: *.js,*.ts # glob pattern or regex pattern to include files, separated by comma
+          IGNORE_PATTERNS: /node_modules/**/*,*.md
+          INCLUDE_PATTERNS: *.js,*.ts,*.py
 ```
 
-## Self-hosting
+---
 
-1. clone code
-2. copy `.env.example` to `.env`, and fill the env variables
-3. install deps and run
+# 🏠 Self-Hosting
 
-```sh
-npm i
-npm i -g pm2
+```bash
+git clone <your-repo>
+cd <repo>
+cp .env.example .env
+
+npm install
+npm install -g pm2
 npm run build
 pm2 start pm2.config.cjs
 ```
 
-[probot](https://probot.github.io/docs/development/) for more detail
+More details:
+[https://probot.github.io/docs/development/](https://probot.github.io/docs/development/)
 
-## Dev
+---
 
-### Setup
+# 🛠️ Development Setup
 
-```sh
+```bash
 # Install dependencies
 npm install
 
-# Build code
+# Build project
 npm run build
 
-# Run the bot
+# Run bot
 npm run start
 ```
 
-### Docker
+---
 
-```sh
-# 1. Build container
-docker build -t cr-bot .
+# 🐳 Docker
 
-# 2. Start container
-docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> cr-bot
+```bash
+# Build container
+docker build -t ai-cr-bot .
+
+# Run container
+docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> ai-cr-bot
 ```
 
-## Contributing
+---
 
-If you have suggestions for how cr-bot could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+# 🤝 Contributing
 
-For more, check out the [Contributing Guide](CONTRIBUTING.md).
+Suggestions, improvements, and bug reports are **welcome**.
+Feel free to **open an issue or submit a pull request**.
 
-## Credit
+---
 
-this project is inpired by [codereview.gpt](https://github.com/sturdy-dev/codereview.gpt)
+# 👨‍💻 Author & Credit
 
-## License
+### **Hemant Kumar**
 
-[ISC](LICENSE) © 2023 anc95
+AI Software Engineer | Machine Learning | NLP | Computer Vision
+
+This project is **developed, customized, and maintained by Hemant Kumar**
+and inspired by earlier open-source research in AI code review systems.
+
+---
+
+# 📄 License
+
+**ISC License © 2026 Hemant Kumar**
+
+---
+
+
+
