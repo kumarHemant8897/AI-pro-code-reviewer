@@ -1,68 +1,74 @@
-
-
 # 🤖 AI CodeReview Bot
 
-> An intelligent **AI-powered code review robot** built using modern LLM technology to automatically analyze GitHub Pull Requests and provide contextual feedback.
+An intelligent **AI-powered code review assistant** that automatically analyzes GitHub Pull Requests and provides contextual, human-like feedback using modern Large Language Models (LLMs).
 
-**Made by:** **Hemant Kumar**
-
----
-
-
+> Built for **learning, experimentation, and real-world automation** in modern software development workflows.
 
 ---
 
-# 🚀 Bot Usage
+## 👨‍💻 Author
 
-❗️⚠️
-Due to cost considerations, this bot is mainly intended for **testing and learning purposes**.
-The demo deployment may have **rate limits or instability**, so **self-hosting is recommended** for production usage.
+**Hemant Kumar**
+AI Software Engineer • Machine Learning • NLP • Computer Vision
 
 ---
 
-# 📦 Installation
+## ✨ Features
 
-Install the GitHub App:
+* 🔍 Automatic **Pull Request code analysis**
+* 💬 Context-aware **review comments on files & PR timeline**
+* 🔄 **Re-review on new commits**
+* ⚙️ Easy **GitHub Actions integration**
+* 🏠 Fully **self-hostable for production**
+* 🧪 Designed for **learning, testing, and experimentation**
+
+---
+
+## 🚀 Quick Start
+
+### 1️⃣ Install GitHub App
+
+Install the bot from GitHub:
 
 **[https://github.com/apps/cr-gpt](https://github.com/apps/cr-gpt)**
 
 ---
 
-# ⚙️ Configuration
+### 2️⃣ Configure Environment
 
-1. Open the **target GitHub repository**
-2. Go to **Settings**
-3. Click **Secrets and Variables → Actions**
-4. Create a new variable:
+Inside your target repository:
+
+1. Go to **Settings → Secrets and Variables → Actions**
+2. Create a new secret:
 
 ```
 OPENAI_API_KEY = your_openai_api_key
 ```
 
-For **GitHub Actions integration**, store it inside **Secrets**.
+> Store the key in **Secrets** when using GitHub Actions.
 
 ---
 
-# ▶️ Start Using
+## ▶️ Usage
 
-1. Create a **new Pull Request** →
-   The bot will **automatically review the code** and post comments in:
+1. Create a **new Pull Request**
+   → The bot automatically reviews code and posts comments in:
 
    * PR timeline
    * File changes section
 
-2. Push new commits →
-   The bot will **re-review updated files automatically**.
+2. Push additional commits
+   → The bot **re-reviews updated code automatically**.
 
 ---
 
-# 🤖 Using GitHub Actions
+## 🤖 GitHub Actions Integration
 
-GitHub Marketplace Action:
+Marketplace Action:
 
 **[https://github.com/marketplace/actions/chatgpt-codereviewer](https://github.com/marketplace/actions/chatgpt-codereviewer)**
 
-### Steps
+### Setup Steps
 
 1. Add `OPENAI_API_KEY` to **GitHub Secrets**
 2. Create workflow file:
@@ -93,27 +99,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # OpenAI usage
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_API_ENDPOINT: https://api.openai.com/v1
           MODEL: gpt-3.5-turbo
 
-          # Common settings
           LANGUAGE: English
-          temperature: 1
+          temperature: 0.7
           top_p: 1
-          max_tokens: 10000
+          max_tokens: 4000
           IGNORE_PATTERNS: /node_modules/**/*,*.md
           INCLUDE_PATTERNS: *.js,*.ts,*.py
 ```
 
 ---
 
-# 🏠 Self-Hosting
+## 🏠 Self-Hosting
 
 ```bash
-git clone <your-repo>
-cd <repo>
+git clone <your-repository>
+cd <repository>
 cp .env.example .env
 
 npm install
@@ -127,22 +131,17 @@ More details:
 
 ---
 
-# 🛠️ Development Setup
+## 🛠️ Development Setup
 
 ```bash
-# Install dependencies
-npm install
-
-# Build project
-npm run build
-
-# Run bot
-npm run start
+npm install        # Install dependencies
+npm run build      # Build project
+npm run start      # Start bot locally
 ```
 
 ---
 
-# 🐳 Docker
+## 🐳 Docker Support
 
 ```bash
 # Build container
@@ -154,29 +153,21 @@ docker run -e APP_ID=<app-id> -e PRIVATE_KEY=<pem-value> ai-cr-bot
 
 ---
 
-# 🤝 Contributing
+## 🤝 Contributing
 
-Suggestions, improvements, and bug reports are **welcome**.
-Feel free to **open an issue or submit a pull request**.
+Contributions, suggestions, and bug reports are welcome.
 
----
-
-# 👨‍💻 Author & Credit
-
-### **Hemant Kumar**
-
-AI Software Engineer | Machine Learning | NLP | Computer Vision
-
-This project is **developed, customized, and maintained by Hemant Kumar**
-and inspired by earlier open-source research in AI code review systems.
+* Open an **issue** for discussion
+* Submit a **pull request** for improvements
 
 ---
 
-# 📄 License
+## 📄 License
 
 **ISC License © 2026 Hemant Kumar**
 
 ---
 
+## ⭐ Support
 
-
+If you find this project useful, consider **starring the repository** to support future de
