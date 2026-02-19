@@ -4,7 +4,7 @@ Here is a **clean, professional README.md** rewritten as if the project was crea
 
 # 🤖 AI CodeReview Bot
 
-**Author:** Hemant Kumar singh yes
+**Author:** Hemant Kumar 
 
 An intelligent **AI-powered GitHub Code Review Bot** that automatically analyzes pull requests, detects bugs, security risks, and style issues, and posts contextual feedback directly inside GitHub PR discussions.
 
