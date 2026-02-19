@@ -120,7 +120,7 @@ This project was developed as part of **AI Software Engineering practice** to de
 
 # 👨‍💻 Author
 
-**Hemant Kumar**
+**Hemant **
 AI Software Engineer | Machine Learning | Computer Vision | NLP
 
 📧 [hamentkumar.8449@gmail.com](mailto:hamentkumar.8449@gmail.com)
